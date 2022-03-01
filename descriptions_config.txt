@@ -59,3 +59,26 @@ Add dist directory in .gitignore
 See the version of node in: https://node.green/
 ---------------------------------------------------------------------------
 
+ESLint:
+
+link: https://eslint.org/docs/user-guide/getting-started
+
+#add eslint to project
+> npm install eslint --save-dev
+
+#run the command bellow and config eslint to create a json config using with Node and Typescript
+> npm init @eslint/config
+
+Install ESLint extension in your visual studio code
+
+command + shift + P and type setting to open settings.json
+add the config bellow:
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+}
+
+Create a file called .eslintignore e add the node_modules and dist directory to it.
+
+--------------------------------------------------------
