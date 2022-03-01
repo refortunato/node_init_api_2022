@@ -79,6 +79,14 @@ add the config bellow:
   },
 }
 
-Create a file called .eslintignore e add the node_modules and dist directory to it.
+Create a file called .eslintignore add the node_modules and dist directory to it.
 
 --------------------------------------------------------
+
+Jest:
+
+# add Jest to project
+> npm i -D jest @types/jest ts-jest
+
+# run this command to config jest
+> npx jest --init
