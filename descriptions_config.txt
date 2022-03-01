@@ -1,6 +1,6 @@
 Git Config:
 
-# Config git setting visual studio code as a default editor of git
+# Config git setting Visual Studio Code as default editor of git
 > git config --global core.editor code
 
 # Open git file global config
@@ -27,6 +27,8 @@ Use EditorConfig
 
 Instal EditorConfig for vscode and add it to you project clicking with the right button of mouse in your
 project and generate .editorconfig
+
+It will help you to keep a standard even if other people use a different SO that change the end of the line character, for example.
 
 ---------------------------------------------------------------------------
 
@@ -63,10 +65,14 @@ set tsconfig.json as this:
     "outDir": "./dist",                                   /* Specify an output folder for all emitted files. */
     "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables `allowSyntheticDefaultImports` for type compatibility. */
     "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
-    "strict": true,                                      /* Enable all strict type-checking options. */
-    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+    //"strict": true,                                      /* Enable all strict type-checking options. */
+    //"skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+    "noImplicitAny": true,                            /* Enable error reporting for expressions and declarations with an implied `any` type.. */
+    "strictNullChecks": true,                         /* When type checking, take into account `null` and `undefined`. */
+    "strictFunctionTypes": true,                      /* When assigning functions, check to ensure parameters and the return values are subtype-compatible. */
+    "strictPropertyInitialization": true,             /* Check for class properties that are declared but not set in the constructor. */
   },
-  "include": ["src"]
+  "include": ["src", "tests"]
 }
 =========================<
 
@@ -74,13 +80,22 @@ Add dist directory in .gitignore
 
 See the version of node in: https://node.green/
 
+create a file in your project called tsconfig-build.json. It will exclude "test" directory when you build you Typescript app
+>=========================
+{
+  "extends": "./tsconfig.json",
+  "exclude": ["tests"]
+}
+=========================<
+
+
 # add rimraf to clear dist directory when build
 > npm i rimraf
 
 and in your package.json add the command in "scripts":
   "scripts": {
     "test": "jest",
-    "build": "rimraf dist && tsc"
+    "build": "rimraf dist && tsc -p tsconfig-build.json"
   },
 
 # add modules-alias to convert correctly to javascript because we will use paths whit @ to import our files
@@ -96,7 +111,7 @@ addAlias('@', resolve('dist'))
 ==========================<
 
 and import this file in your start script. Ex: import './config/module-alias';
-After that, you are able to use @ to import (@ is your root dir). Ex: import SomeClass from '@/some-dir/SomeClass'
+After that, you are able to use @ to import (@ is your root dir ("baseUrl" in your tsconfig.json)). Ex: import SomeClass from '@/some-dir/SomeClass'
 
 ---------------------------------------------------------------------------
 
@@ -104,11 +119,32 @@ ESLint:
 
 link: https://eslint.org/docs/user-guide/getting-started
 
-#add eslint to project
-> npm install eslint --save-dev
+We will use eslint-config-standard-with-typescript.
+See how to install :
+https://www.npmjs.com/package/eslint-config-standard-with-typescript
 
-#run the command bellow and config eslint to create a json config using with Node and Typescript
-> npm init @eslint/config
+Command Ex:
+> npm install --save-dev \
+  typescript@^4 \
+  eslint@^7.12.1 \
+  eslint-plugin-promise@^5.0.0 \
+  eslint-plugin-import@^2.22.1 \
+  eslint-plugin-node@^11.1.0 \
+  @typescript-eslint/eslint-plugin@^4.0.1 \
+  eslint-config-standard-with-typescript@latest
+
+create a file called .eslintrc.json at your root project
+Ex:
+>==========================
+{
+  "extends": "standard-with-typescript",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  }
+}
+==========================<
+
+
 
 Install ESLint extension in your visual studio code
 
