@@ -80,7 +80,7 @@ Add dist directory in .gitignore
 
 See the version of node in: https://node.green/
 
-create a file in your project called tsconfig-build.json. It will exclude "test" directory when you build you Typescript app
+create a file in your project named tsconfig-build.json. It will exclude "test" directory when you build you Typescript app
 >=========================
 {
   "extends": "./tsconfig.json",
@@ -133,7 +133,7 @@ Command Ex:
   @typescript-eslint/eslint-plugin@^4.0.1 \
   eslint-config-standard-with-typescript@latest
 
-create a file called .eslintrc.json at your root project
+create a file named .eslintrc.json at your root project
 Ex:
 >==========================
 {
@@ -156,8 +156,14 @@ add the config bellow:
   },
 }
 
-Create a file called .eslintignore add the node_modules and dist directory to it.
+Create a file named .eslintignore add the node_modules and dist directory to it.
 
+Add these commands to your package.json:
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    ...
+  },
 --------------------------------------------------------
 
 Jest:
@@ -192,3 +198,35 @@ module.exports = {
   }
 };
 ==========================<
+add commands in "script" on package.json
+
+"scripts": {
+    "test": "jest --passWithNoTests --no-cache --runInBand",
+    "test:watch": "npm run test -- --watch",
+    "test:coverage": "npm run test -- --coverage",
+    ...
+  },
+
+--------------------------------------------------------
+
+Lint Staged:
+
+#add lint-staged to your project
+> npm i -D lint-staged
+
+create a file named .lintstagedrc.json with the follow content:
+>==========================
+{
+  "*.ts": [
+    "npm run lint:fix",
+    "npm run test:staged"
+  ]
+}
+==========================<
+
+
+add the follow commands in package.json
+  "scripts": {
+    "test:staged": "npm test -- --findRelatedTests",
+    ...
+  },
