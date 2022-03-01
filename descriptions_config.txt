@@ -25,7 +25,7 @@ Set git config file:
 
 Use EditorConfig
 
-Instal EditorConfig for vscode and add it to you project clicking with the right button of mouse in your
+Instal EditorConfig for vscode and add it to your project clicking with the right button of mouse in your
 project and generate .editorconfig
 
 It will help you to keep a standard even if other people use a different SO that change the end of the line character, for example.
@@ -80,7 +80,7 @@ Add dist directory in .gitignore
 
 See the version of node in: https://node.green/
 
-create a file in your project named tsconfig-build.json. It will exclude "test" directory when you build you Typescript app
+create a file in your project named tsconfig-build.json. It will exclude "test" directory when you build your Typescript app
 >=========================
 {
   "extends": "./tsconfig.json",
@@ -94,8 +94,8 @@ create a file in your project named tsconfig-build.json. It will exclude "test" 
 
 and in your package.json add the command in "scripts":
   "scripts": {
-    "test": "jest",
     "build": "rimraf dist && tsc -p tsconfig-build.json"
+    ...
   },
 
 # add modules-alias to convert correctly to javascript because we will use paths whit @ to import our files
@@ -133,7 +133,7 @@ Command Ex:
   @typescript-eslint/eslint-plugin@^4.0.1 \
   eslint-config-standard-with-typescript@latest
 
-create a file named .eslintrc.json at your root project
+create a file named .eslintrc.json in your root project
 Ex:
 >==========================
 {
@@ -194,6 +194,7 @@ module.exports = {
     '<rootDir>/tests'
   ],
   transform: {
+    // needs to have ts-jest installed
     '\\.ts': 'ts-jest'
   }
 };
