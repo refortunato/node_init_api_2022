@@ -6,7 +6,7 @@ Git Config:
 # Open git file global config
 > git config --global --edit
 
-Set git config file: 
+Set git config file:
 >===========================
 [user]
 	name = My Name
@@ -51,21 +51,53 @@ set tsconfig.json as this:
 >==========================
 {
   "compilerOptions": {
-    /* Language and Environment */
-    "target": "es2019",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
-    /* Modules */
+    "target": "es2021",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     "module": "commonjs",                                /* Specify what module code is generated. */
-    /* JavaScript Support */
+    "rootDir": "./src",                                  /* Specify the root folder within your source files. */
+    "baseUrl": "./src",                                  /* Specify the base directory to resolve non-relative module names. */
+    "paths": {
+      "@/*": ["*"], /* to works @ when import some script. Ex: import Teste from '@/my_dir/test'.*/
+      "@/tests/*": ["../tests/*"]
+    },                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
     "allowJs": true,                                  /* Allow JavaScript files to be a part of your program. Use the `checkJS` option to get errors from these files. */
     "outDir": "./dist",                                   /* Specify an output folder for all emitted files. */
-    "esModuleInterop": true                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables `allowSyntheticDefaultImports` for type compatibility. */
-  }
+    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables `allowSyntheticDefaultImports` for type compatibility. */
+    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+    "strict": true,                                      /* Enable all strict type-checking options. */
+    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+  },
+  "include": ["src"]
 }
 =========================<
 
 Add dist directory in .gitignore
 
 See the version of node in: https://node.green/
+
+# add rimraf to clear dist directory when build
+> npm i rimraf
+
+and in your package.json add the command in "scripts":
+  "scripts": {
+    "test": "jest",
+    "build": "rimraf dist && tsc"
+  },
+
+# add modules-alias to convert correctly to javascript because we will use paths whit @ to import our files
+> npm i module-alias
+> npm i -D @types/module-alias
+
+create a index.ts file like that:
+>==========================
+import { addAlias } from 'module-alias'
+import { resolve } from 'path'
+
+addAlias('@', resolve('dist'))
+==========================<
+
+and import this file in your start script. Ex: import './config/module-alias';
+After that, you are able to use @ to import (@ is your root dir). Ex: import SomeClass from '@/some-dir/SomeClass'
+
 ---------------------------------------------------------------------------
 
 ESLint:
