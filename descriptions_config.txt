@@ -230,3 +230,26 @@ add the follow commands in package.json
     "test:staged": "npm test -- --findRelatedTests",
     ...
   },
+
+--------------------------------------------------------
+
+Husky:
+
+link: https://github.com/typicode/husky
+
+This library must be installed to works with Lint Staged
+
+# add husky to yout project
+> npm i -D husky
+
+# run this command to prepare husky. Will change package.json adding script "prepare"
+> npm set-script prepare "husky install"
+
+# after that run:
+> npm run prepare
+
+# now you are able to set commands on pre commit. This example will run what lint-staged in configured for.
+> npx husky add .husky/pre-commit "npx lint-staged"
+
+# command to execute before git push
+> npx husky add .husky/pre-push "npm run test:coverage"

@@ -11,7 +11,8 @@
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
     "start": "node dist/main/api",
-    "build": "rimraf dist && tsc -p tsconfig-build.json"
+    "build": "rimraf dist && tsc -p tsconfig-build.json",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +28,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.2.0",
     "git-commit-msg-linter": "^4.1.1",
+    "husky": "^7.0.4",
     "jest": "^27.5.1",
     "lint-staged": "^12.3.4",
     "ts-jest": "^27.1.3",
