@@ -167,3 +167,28 @@ Jest:
 
 # run this command to config jest
 > npx jest --init
+
+Config jest to generate a JS file with babel
+
+add coverage directory to your .gitignore and .eslintignore files
+
+you can config your jest (jest.config.ts) like that:
+>==========================
+module.exports = {
+  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+  coverageDirectory: "coverage",
+  // Indicates which provider should be used to instrument code for coverage
+  // coverageProvider: "babel",
+  moduleNameMapper: {
+    '@/(.+)': '<rootDir>/src/$1',
+    '@/tests(.+)': '<rootDir>/tests/$1',
+  },
+  roots: [
+    '<rootDir>/src',
+    '<rootDir>/tests'
+  ],
+  transform: {
+    '\\.ts': 'ts-jest'
+  }
+};
+==========================<
