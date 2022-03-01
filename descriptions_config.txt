@@ -24,3 +24,6 @@ Set git config file:
 Use Conventional Commit:
 
 link: https://www.conventionalcommits.org/en/v1.0.0/
+
+# add git commit message linter to validate commit messages
+> npm i -D git-commit-msg-linter
